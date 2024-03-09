@@ -3,10 +3,14 @@
         <OutputType>Exe</OutputType>
         <TargetFramework>net8.0</TargetFramework>
         <Nullable>enable</Nullable>
+        <!--location of Main() -->
+        <StartupObject>HelloThree.Program</StartupObject>
     </PropertyGroup>
     <ItemGroup>
       <PackageReference Include="OpenTK" Version="4.8.2" />
 
+      <!-- SDL2-CS is csharp bindings, sdl2.nuget is the lib, sdl2_net.nuget is the .net version -->
+      <!-- we need the bindings as they are a seperate artifact from the lib. i dont recal why 2 versions lib -->
       <PackageReference Include="SDL2-CS" Version="2.0.0" />
       <PackageReference Include="sdl2.nuget" Version="2.2.0" />
       <PackageReference Include="sdl2_net.nuget" Version="2.2.0" />
@@ -14,6 +18,17 @@
       <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.9.0" />
       <PackageReference Include="xunit" Version="2.6.6" />
       <PackageReference Include="xunit.runner.visualstudio" Version="2.5.6" />
+    </ItemGroup>
+
+    <!-- SDL2-2.0.so is a library archive format, this copies it to output dir on build -->
+    <!-- nessecary for user access at run time -->
+    <ItemGroup>
+        <None Update="lib/SDL2.so">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+        <None Update="lib/SDL2.dll">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
     </ItemGroup>
 </Project>
 
